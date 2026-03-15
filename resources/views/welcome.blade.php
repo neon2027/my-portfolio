@@ -120,12 +120,23 @@
 
     $deploymentPlatforms = [
         [
+            'name'    => 'Hostinger',
+            'label'   => 'VPS & Shared Hosting',
+            'desc'    => 'Deploying Laravel applications on Hostinger VPS and shared hosting — managing hPanel, SSH access, configuring PHP versions, setting up MySQL databases, SSL certificates, and running Artisan commands.',
+            'badges'  => ['hPanel', 'VPS', 'SSH', 'PHP-FPM', 'MySQL', 'SSL/TLS'],
+            'color'   => 'text-[#673DE6]',
+            'bg'      => 'bg-[#673DE6]/10',
+            'current' => true,
+            'icon'    => '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>', // Heroicons: circle-stack
+        ],
+        [
             'name'    => 'AWS EC2',
             'label'   => 'Amazon Web Services',
             'desc'    => 'Provisioning and managing EC2 instances for production Laravel apps — configuring Nginx, SSL via Certbot, environment setup, and process management with Supervisor for queue workers.',
             'badges'  => ['EC2', 'Nginx', 'SSL/TLS', 'Ubuntu', 'Supervisor', 'Cron Jobs'],
             'color'   => 'text-[#FF9900]',
             'bg'      => 'bg-[#FF9900]/10',
+            'current' => false,
             'icon'    => '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg>', // Heroicons: cpu-chip
         ],
         [
@@ -135,6 +146,7 @@
             'badges'  => ['cPanel', 'SSH', 'PHP-FPM', 'MySQL', 'Let\'s Encrypt', 'Composer'],
             'color'   => 'text-[#DC2626]',
             'bg'      => 'bg-[#DC2626]/10',
+            'current' => false,
             'icon'    => '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525"/></svg>', // Heroicons: globe-americas
         ],
         [
@@ -144,6 +156,7 @@
             'badges'  => ['Zero-Downtime', 'Auto-Scaling', 'Queues', 'Scheduler', 'Environment Mgmt'],
             'color'   => 'text-[#FF2D20]',
             'bg'      => 'bg-[#FF2D20]/10',
+            'current' => false,
             'icon'    => '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"/></svg>', // Heroicons: cloud-arrow-up
         ],
     ];
@@ -456,9 +469,15 @@
                 </p>
             </div>
 
-            <div class="section-fade grid md:grid-cols-3 gap-6">
+            <div class="section-fade grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 @foreach($deploymentPlatforms as $platform)
-                    <div class="card-hover bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-2xl p-7 flex flex-col gap-5">
+                    <div class="card-hover relative bg-white dark:bg-[#111] border {{ $platform['current'] ? 'border-[#673DE6]/40' : 'border-gray-100 dark:border-gray-800' }} rounded-2xl p-7 flex flex-col gap-5">
+                        @if($platform['current'])
+                            <div class="absolute top-4 right-4 flex items-center gap-1.5 text-xs font-semibold text-[#673DE6]">
+                                <span class="w-2 h-2 bg-[#673DE6] rounded-full animate-pulse"></span>
+                                Hosting this site
+                            </div>
+                        @endif
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 {{ $platform['bg'] }} {{ $platform['color'] }} rounded-xl flex items-center justify-center shrink-0">
                                 {!! $platform['icon'] !!}
