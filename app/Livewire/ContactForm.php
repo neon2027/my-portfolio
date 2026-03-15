@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Mail\ContactInquiry;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class ContactForm extends Component
@@ -59,6 +61,15 @@ class ContactForm extends Component
             'email'   => $validated['email'],
             'subject' => $validated['subject'],
         ]);
+
+        Mail::to('lustanexequiel@gmail.com')->send(
+            new ContactInquiry(
+                senderName:  $validated['name'],
+                senderEmail: $validated['email'],
+                subject:     $validated['subject'],
+                body:        $validated['body'],
+            )
+        );
 
         $this->reset(['name', 'email', 'subject', 'body']);
         $this->submitted = true;
