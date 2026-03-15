@@ -15,14 +15,14 @@ class ContactInquiry extends Mailable
     public function __construct(
         public readonly string $senderName,
         public readonly string $senderEmail,
-        public readonly string $subject,
+        public readonly string $inquirySubject,
         public readonly string $body,
     ) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Portfolio Inquiry] ' . $this->subject,
+            subject: '[Portfolio Inquiry] ' . $this->inquirySubject,
             replyTo: [$this->senderEmail],
         );
     }

@@ -35,12 +35,12 @@
             <div class="value"><a href="mailto:{{ $senderEmail }}">{{ $senderEmail }}</a></div>
 
             <div class="label">Subject</div>
-            <div class="value">{{ $subject }}</div>
+            <div class="value">{{ $inquirySubject }}</div>
 
             <div class="label">Message</div>
             <div class="message-box">{{ $body }}</div>
 
-            <a href="mailto:{{ $senderEmail }}?subject=Re: {{ rawurlencode($subject) }}" class="reply-btn">
+            <a href="mailto:{{ $senderEmail }}?subject=Re: {{ rawurlencode($inquirySubject) }}" class="reply-btn">
                 Reply to {{ $senderName }}
             </a>
         </div>

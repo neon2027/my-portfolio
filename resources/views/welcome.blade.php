@@ -49,9 +49,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .ai-badge {
-            background: linear-gradient(135deg, #DC2626 0%, #7C3AED 100%);
-        }
+        .ai-badge { background: linear-gradient(135deg, #DC2626 0%, #7C3AED 100%); }
         .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
         .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(220,38,38,.12); }
         .skill-tag { transition: all .2s ease; }
@@ -63,46 +61,21 @@
 </head>
 
 @php
-    $backendSkills = [
-        ['name' => 'PHP', 'icon' => '🐘'],
-        ['name' => 'Laravel', 'icon' => '🔴'],
-        ['name' => 'Node.js', 'icon' => '🟢'],
-        ['name' => 'MySQL', 'icon' => '🗄️'],
-        ['name' => 'PostgreSQL', 'icon' => '🐘'],
-        ['name' => 'Redis', 'icon' => '⚡'],
-        ['name' => 'REST APIs', 'icon' => '🔌'],
-        ['name' => 'Authentication', 'icon' => '🔐'],
-        ['name' => 'Testing (Pest)', 'icon' => '🧪'],
-        ['name' => 'Git & DevOps', 'icon' => '🚀'],
-    ];
-
-    $frontendSkills = [
-        ['name' => 'HTML5', 'icon' => '🏗️'],
-        ['name' => 'CSS3', 'icon' => '🎨'],
-        ['name' => 'JavaScript', 'icon' => '⚡'],
-        ['name' => 'Vue.js', 'icon' => '💚'],
-        ['name' => 'React', 'icon' => '⚛️'],
-        ['name' => 'Tailwind CSS', 'icon' => '🌊'],
-        ['name' => 'Livewire', 'icon' => '🔥'],
-        ['name' => 'Responsive Design', 'icon' => '📱'],
-        ['name' => 'Performance', 'icon' => '📊'],
-        ['name' => 'UI/UX Principles', 'icon' => '🎯'],
-    ];
+    $backendSkills  = ['PHP', 'Laravel', 'Node.js', 'MySQL', 'PostgreSQL', 'Redis', 'REST APIs', 'Authentication', 'Testing (Pest)', 'Git & DevOps'];
+    $frontendSkills = ['HTML5', 'CSS3', 'JavaScript', 'Vue.js', 'React', 'Tailwind CSS', 'Livewire', 'Responsive Design', 'Performance', 'UI/UX Principles'];
 
     $aiSkills = [
-        ['title' => 'AI-Assisted Programming', 'desc' => 'Expert use of Claude, ChatGPT, and GitHub Copilot to accelerate development — writing precise, context-rich prompts that yield production-ready code.'],
-        ['title' => 'Prompt Engineering', 'desc' => 'Deep understanding of prompt structure: system roles, few-shot examples, chain-of-thought reasoning, and iterative refinement to get optimal AI outputs.'],
-        ['title' => 'AI Workflow Integration', 'desc' => 'Seamlessly integrating AI tools into the SDLC — from ideation and architecture design to code review, testing, and documentation generation.'],
-        ['title' => 'LLM API Usage', 'desc' => 'Building features powered by LLM APIs (OpenAI, Anthropic) — including context management, function calling, and response streaming.'],
+        ['title' => 'AI-Assisted Programming',  'desc' => 'Expert use of Claude, ChatGPT, and GitHub Copilot to accelerate development — writing precise, context-rich prompts that yield production-ready code.'],
+        ['title' => 'Prompt Engineering',        'desc' => 'Deep understanding of prompt structure: system roles, few-shot examples, chain-of-thought reasoning, and iterative refinement to get optimal AI outputs.'],
+        ['title' => 'AI Workflow Integration',   'desc' => 'Seamlessly integrating AI tools into the SDLC — from ideation and architecture design to code review, testing, and documentation generation.'],
+        ['title' => 'LLM API Usage',             'desc' => 'Building features powered by LLM APIs (OpenAI, Anthropic) — including context management, function calling, and response streaming.'],
     ];
 
     $checkUrl = function (string $url): string {
         $key = 'project_status_' . md5($url);
         return \Illuminate\Support\Facades\Cache::remember($key, now()->addMinutes(5), function () use ($url): string {
             try {
-                $response = \Illuminate\Support\Facades\Http::timeout(5)
-                    ->withoutVerifying()
-                    ->head($url);
+                $response = \Illuminate\Support\Facades\Http::timeout(5)->withoutVerifying()->head($url);
                 return $response->successful() || $response->redirect() ? 'Live' : 'Down';
             } catch (\Throwable) {
                 return 'Down';
@@ -167,10 +140,11 @@
                class="hidden md:inline-flex items-center gap-2 bg-[#DC2626] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#B91C1C] transition">
                 Hire Me
             </a>
-            {{-- Mobile menu toggle (simple) --}}
+            {{-- Mobile menu toggle --}}
             <button id="menu-toggle" class="md:hidden text-gray-600 dark:text-gray-400 focus:outline-none" aria-label="Toggle menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                {{-- Heroicons: bars-3 --}}
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
                 </svg>
             </button>
         </nav>
@@ -209,8 +183,9 @@
                         <a href="#projects"
                            class="inline-flex items-center gap-2 bg-[#DC2626] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#B91C1C] transition-all duration-200 shadow-lg shadow-[#DC2626]/25">
                             View My Work
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            {{-- Heroicons: arrow-right --}}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
                             </svg>
                         </a>
                         <a href="#contact"
@@ -224,12 +199,14 @@
                         <div class="flex gap-3">
                             <a href="https://github.com/neon2027" target="_blank" rel="noopener noreferrer"
                                aria-label="GitHub" class="w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-[#DC2626] hover:text-[#DC2626] transition text-gray-500">
+                                {{-- GitHub brand SVG --}}
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
                                 </svg>
                             </a>
                             <a href="https://www.linkedin.com/in/exequiel-lustan-19b610281/" target="_blank" rel="noopener noreferrer"
                                aria-label="LinkedIn" class="w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-[#DC2626] hover:text-[#DC2626] transition text-gray-500">
+                                {{-- LinkedIn brand SVG --}}
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                                 </svg>
@@ -246,10 +223,15 @@
                             <img src="{{ asset('assets/illustrations/portfolio.jpg') }}"
                                  alt="Exequiel Lustan — Full-Stack Developer"
                                  class="w-72 h-72 lg:w-80 lg:h-80 object-cover rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800"/>
-                            {{-- Floating badge --}}
+                            {{-- Floating AI badge --}}
                             <div class="absolute -bottom-4 -left-4 bg-white dark:bg-[#1a1a1a] border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-2.5 shadow-lg">
                                 <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 ai-badge rounded-lg flex items-center justify-center text-white text-sm">✨</div>
+                                    <div class="w-8 h-8 ai-badge rounded-lg flex items-center justify-center text-white">
+                                        {{-- Heroicons: sparkles --}}
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/>
+                                        </svg>
+                                    </div>
                                     <div>
                                         <p class="text-xs font-bold text-[#1b1b18] dark:text-white">AI-Powered Dev</p>
                                         <p class="text-xs text-gray-400">Prompt Engineering</p>
@@ -270,8 +252,9 @@
             <div class="flex justify-center mt-20">
                 <a href="#about" class="flex flex-col items-center gap-1 text-gray-400 hover:text-[#DC2626] transition">
                     <span class="text-xs uppercase tracking-widest">Scroll</span>
-                    <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    {{-- Heroicons: chevron-down --}}
+                    <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
                     </svg>
                 </a>
             </div>
@@ -303,13 +286,12 @@
                 </div>
                 <div class="section-fade grid grid-cols-2 gap-4">
                     @foreach([
-                        ['label' => 'Projects Delivered', 'value' => '6', 'icon' => ''],
-                        ['label' => 'Years Experience',   'value' => '4+',  'icon' => ''],
-                        ['label' => 'Technologies',       'value' => '15+', 'icon' => ''],
-                        ['label' => 'Happy Clients',      'value' => '10+', 'icon' => ''],
+                        ['label' => 'Projects Delivered', 'value' => '6'],
+                        ['label' => 'Years Experience',   'value' => '4+'],
+                        ['label' => 'Technologies',       'value' => '15+'],
+                        ['label' => 'Happy Clients',      'value' => '10+'],
                     ] as $stat)
                         <div class="card-hover bg-[#FAFAFA] dark:bg-[#1a1a1a] border border-gray-100 dark:border-gray-800 rounded-2xl p-6 text-center">
-                            <div class="text-3xl mb-2">{{ $stat['icon'] }}</div>
                             <div class="text-3xl font-bold text-[#DC2626]">{{ $stat['value'] }}</div>
                             <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $stat['label'] }}</div>
                         </div>
@@ -340,7 +322,11 @@
                     <div class="relative grid md:grid-cols-2 gap-8 items-center">
                         <div class="space-y-4">
                             <div class="inline-flex items-center gap-2 bg-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                                ✨ Signature Skill
+                                {{-- Heroicons: sparkles --}}
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/>
+                                </svg>
+                                Signature Skill
                             </div>
                             <h3 class="text-3xl font-bold">AI-Assisted Programming</h3>
                             <p class="text-white/80 leading-relaxed">
@@ -361,7 +347,12 @@
             <div class="section-fade grid md:grid-cols-2 gap-6">
                 @foreach($aiSkills as $skill)
                     <div class="card-hover bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-2xl p-6">
-                        <div class="w-10 h-10 bg-[#DC2626]/10 rounded-xl flex items-center justify-center text-[#DC2626] text-xl mb-4">✦</div>
+                        <div class="w-10 h-10 bg-[#DC2626]/10 rounded-xl flex items-center justify-center text-[#DC2626] mb-4">
+                            {{-- Heroicons: cpu-chip --}}
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/>
+                            </svg>
+                        </div>
                         <h3 class="text-base font-bold mb-2 text-[#1b1b18] dark:text-white">{{ $skill['title'] }}</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{{ $skill['desc'] }}</p>
                     </div>
@@ -382,14 +373,18 @@
                 {{-- Backend --}}
                 <div class="space-y-5">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 bg-[#DC2626]/10 rounded-lg flex items-center justify-center text-[#DC2626]">⚙️</div>
+                        <div class="w-8 h-8 bg-[#DC2626]/10 rounded-lg flex items-center justify-center text-[#DC2626]">
+                            {{-- Heroicons: wrench-screwdriver --}}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z"/>
+                            </svg>
+                        </div>
                         <h3 class="font-bold uppercase tracking-wider text-sm">Backend Development</h3>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         @foreach($backendSkills as $skill)
-                            <span class="skill-tag flex items-center gap-1.5 border border-dashed border-[#DC2626]/50 text-sm px-3.5 py-2 rounded-lg hover:bg-[#DC2626]/5 dark:hover:bg-[#DC2626]/10 cursor-default">
-                                <span>{{ $skill['icon'] }}</span>
-                                {{ $skill['name'] }}
+                            <span class="skill-tag border border-dashed border-[#DC2626]/50 text-sm px-3.5 py-2 rounded-lg hover:bg-[#DC2626]/5 dark:hover:bg-[#DC2626]/10 cursor-default">
+                                {{ $skill }}
                             </span>
                         @endforeach
                     </div>
@@ -398,14 +393,18 @@
                 {{-- Frontend --}}
                 <div class="space-y-5">
                     <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 bg-[#DC2626]/10 rounded-lg flex items-center justify-center text-[#DC2626]">🎨</div>
+                        <div class="w-8 h-8 bg-[#DC2626]/10 rounded-lg flex items-center justify-center text-[#DC2626]">
+                            {{-- Heroicons: paint-brush --}}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42"/>
+                            </svg>
+                        </div>
                         <h3 class="font-bold uppercase tracking-wider text-sm">Frontend Development</h3>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         @foreach($frontendSkills as $skill)
-                            <span class="skill-tag flex items-center gap-1.5 border border-dashed border-[#DC2626]/50 text-sm px-3.5 py-2 rounded-lg hover:bg-[#DC2626]/5 dark:hover:bg-[#DC2626]/10 cursor-default">
-                                <span>{{ $skill['icon'] }}</span>
-                                {{ $skill['name'] }}
+                            <span class="skill-tag border border-dashed border-[#DC2626]/50 text-sm px-3.5 py-2 rounded-lg hover:bg-[#DC2626]/5 dark:hover:bg-[#DC2626]/10 cursor-default">
+                                {{ $skill }}
                             </span>
                         @endforeach
                     </div>
@@ -443,8 +442,9 @@
                             <h3 class="text-lg font-bold mb-1 group-hover:text-[#DC2626] transition">{{ $project['title'] }}</h3>
                             <a href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer"
                                class="text-xs text-gray-400 hover:text-[#DC2626] transition mb-2 inline-flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                {{-- Heroicons: arrow-top-right-on-square --}}
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
                                 </svg>
                                 {{ parse_url($project['url'], PHP_URL_HOST) }}
                             </a>
@@ -472,20 +472,8 @@
             </div>
             <div class="section-fade max-w-2xl mx-auto space-y-6">
                 @foreach([
-                    [
-                        'degree'  => 'Master in Information System',
-                        'school'  => 'Bicol University',
-                        'place'   => 'Legazpi City, Philippines',
-                        'period'  => '2025 — Present',
-                        'current' => true,
-                    ],
-                    [
-                        'degree'  => 'B.S. Computer Science',
-                        'school'  => 'Bicol University',
-                        'place'   => 'Legazpi City, Philippines',
-                        'period'  => '2018 — 2022',
-                        'current' => false,
-                    ],
+                    ['degree' => 'Master in Information System', 'school' => 'Bicol University', 'place' => 'Legazpi City, Philippines', 'period' => '2025 — Present', 'current' => true],
+                    ['degree' => 'B.S. Computer Science',        'school' => 'Bicol University', 'place' => 'Legazpi City, Philippines', 'period' => '2018 — 2022',    'current' => false],
                 ] as $edu)
                     <div class="card-hover relative bg-[#FAFAFA] dark:bg-[#1a1a1a] border {{ $edu['current'] ? 'border-[#DC2626]/40' : 'border-gray-100 dark:border-gray-800' }} rounded-2xl p-6 flex gap-5 items-start">
                         @if($edu['current'])
@@ -494,8 +482,11 @@
                                 Current
                             </div>
                         @endif
-                        <div class="w-12 h-12 rounded-xl {{ $edu['current'] ? 'bg-[#DC2626]' : 'bg-gray-100 dark:bg-gray-800' }} flex items-center justify-center text-{{ $edu['current'] ? 'white' : 'gray-500' }} text-xl shrink-0">
-                            🎓
+                        <div class="w-12 h-12 rounded-xl {{ $edu['current'] ? 'bg-[#DC2626] text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400' }} flex items-center justify-center shrink-0">
+                            {{-- Heroicons: academic-cap --}}
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/>
+                            </svg>
                         </div>
                         <div>
                             <h3 class="font-bold text-lg">{{ $edu['degree'] }}</h3>
@@ -524,13 +515,29 @@
                     </div>
                     <div class="space-y-4">
                         @foreach([
-                            ['icon' => '📧', 'label' => 'Email', 'value' => 'lustanexequiel@gmail.com', 'href' => 'mailto:lustanexequiel@gmail.com'],
-                            ['icon' => '📍', 'label' => 'Location', 'value' => 'Legazpi City, Philippines', 'href' => null],
-                            ['icon' => '💼', 'label' => 'Status', 'value' => 'Open to opportunities', 'href' => null],
+                            ['label' => 'Email',    'value' => 'lustanexequiel@gmail.com', 'href' => 'mailto:lustanexequiel@gmail.com', 'icon' => 'envelope'],
+                            ['label' => 'Location', 'value' => 'Legazpi City, Philippines',  'href' => null, 'icon' => 'map-pin'],
+                            ['label' => 'Status',   'value' => 'Open to opportunities',      'href' => null, 'icon' => 'briefcase'],
                         ] as $info)
                             <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-[#DC2626]/10 rounded-xl flex items-center justify-center text-xl shrink-0">
-                                    {{ $info['icon'] }}
+                                <div class="w-10 h-10 bg-[#DC2626]/10 rounded-xl flex items-center justify-center text-[#DC2626] shrink-0">
+                                    @if($info['icon'] === 'envelope')
+                                        {{-- Heroicons: envelope --}}
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/>
+                                        </svg>
+                                    @elseif($info['icon'] === 'map-pin')
+                                        {{-- Heroicons: map-pin --}}
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/>
+                                        </svg>
+                                    @else
+                                        {{-- Heroicons: briefcase --}}
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/>
+                                        </svg>
+                                    @endif
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400 uppercase tracking-wider">{{ $info['label'] }}</p>
@@ -576,8 +583,13 @@
                 <span class="font-semibold text-[#DC2626]">Exequiel Lustan</span>
                 — Built with Laravel & Livewire
             </p>
-            <p class="flex items-center gap-1">
-                Crafted with <span class="text-[#DC2626]">♥</span> &amp; AI assistance
+            <p class="flex items-center gap-1.5">
+                Crafted with
+                {{-- Heroicons: heart (solid) --}}
+                <svg class="w-4 h-4 text-[#DC2626]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"/>
+                </svg>
+                &amp; AI assistance
             </p>
         </div>
     </footer>
@@ -585,26 +597,21 @@
     @livewireScripts
 
     <script>
-        // Mobile menu toggle
         document.getElementById('menu-toggle')?.addEventListener('click', () => {
             document.getElementById('mobile-menu')?.classList.toggle('hidden');
         });
 
-        // Scroll-reveal observer
         const observer = new IntersectionObserver(
             (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
             { threshold: 0.12 }
         );
         document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
 
-        // Active nav highlight on scroll
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('header a[href^="#"]');
         window.addEventListener('scroll', () => {
             let current = '';
-            sections.forEach(s => {
-                if (window.scrollY >= s.offsetTop - 100) current = s.id;
-            });
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
             navLinks.forEach(a => {
                 a.classList.toggle('text-[#DC2626]', a.getAttribute('href') === '#' + current);
             });

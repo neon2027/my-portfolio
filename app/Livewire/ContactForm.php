@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Mail\ContactInquiry;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 
 class ContactForm extends Component
@@ -18,6 +19,8 @@ class ContactForm extends Component
     public string $body = '';
 
     public bool $submitted = false;
+
+    public string $rateLimitMessage = '';
 
     protected function rules(): array
     {
@@ -54,7 +57,24 @@ class ContactForm extends Component
 
     public function submit(): void
     {
+        $ip  = request()->ip();
+        $key = 'contact_form:' . $ip;
+
+        if (RateLimiter::tooManyAttempts($key, maxAttempts: 3)) {
+            $seconds = RateLimiter::availableIn($key);
+            $minutes = ceil($seconds / 60);
+
+            Log::warning('Contact form rate limit exceeded', ['ip' => $ip]);
+
+            $this->rateLimitMessage = "Too many submissions. Please try again in {$minutes} minute(s).";
+            return;
+        }
+
+        RateLimiter::hit($key, decaySeconds: 3600);
+
         $validated = $this->validate();
+
+        $this->rateLimitMessage = '';
 
         Log::info('Portfolio contact form submission', [
             'name'    => $validated['name'],
@@ -66,7 +86,7 @@ class ContactForm extends Component
             new ContactInquiry(
                 senderName:  $validated['name'],
                 senderEmail: $validated['email'],
-                subject:     $validated['subject'],
+                inquirySubject: $validated['subject'],
                 body:        $validated['body'],
             )
         );
