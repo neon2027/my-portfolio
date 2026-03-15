@@ -57,6 +57,22 @@
         .nav-link { position: relative; }
         .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:#DC2626; transition: width .3s ease; }
         .nav-link:hover::after { width:100%; }
+
+        /* ── macOS-style modal animations ──────────────────────────────────── */
+        @keyframes modal-backdrop-in  { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modal-backdrop-out { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes modal-panel-in {
+            from { opacity: 0; transform: scale(0.94) translateY(6px); }
+            to   { opacity: 1; transform: scale(1)    translateY(0);   }
+        }
+        @keyframes modal-panel-out {
+            from { opacity: 1; transform: scale(1)    translateY(0);   }
+            to   { opacity: 0; transform: scale(0.94) translateY(6px); }
+        }
+        .modal-backdrop-enter { animation: modal-backdrop-in  220ms cubic-bezier(0.32,0.72,0,1) forwards; }
+        .modal-backdrop-leave { animation: modal-backdrop-out 180ms cubic-bezier(0.32,0.72,0,1) forwards; }
+        .modal-panel-enter    { animation: modal-panel-in     260ms cubic-bezier(0.34,1.56,0.64,1) forwards; }
+        .modal-panel-leave    { animation: modal-panel-out    180ms cubic-bezier(0.32,0.72,0,1)    forwards; }
     </style>
 </head>
 
@@ -250,13 +266,13 @@
                     <div class="flex items-center gap-4 pt-2">
                         <span class="text-xs text-gray-400 uppercase tracking-widest">Find me on</span>
                         <div class="flex gap-3">
-                            <a href="https://github.com/neon2027" target="_blank" rel="noopener noreferrer"
+                            <button onclick="openGithubNotice()"
                                aria-label="GitHub" class="w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-[#DC2626] hover:text-[#DC2626] transition text-gray-500">
                                 {{-- GitHub brand SVG --}}
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
                                 </svg>
-                            </a>
+                            </button>
                             <a href="https://www.linkedin.com/in/exequiel-lustan-19b610281/" target="_blank" rel="noopener noreferrer"
                                aria-label="LinkedIn" class="w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-[#DC2626] hover:text-[#DC2626] transition text-gray-500">
                                 {{-- LinkedIn brand SVG --}}
@@ -692,6 +708,95 @@
         </div>
     </footer>
 
+    {{-- ── GitHub Notice Modal ─────────────────────────────────────────────── --}}
+    <div id="github-notice-modal"
+         class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+         aria-modal="true" role="dialog" aria-labelledby="github-notice-title">
+
+        {{-- Backdrop --}}
+        <div id="github-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+             onclick="closeGithubNotice()"></div>
+
+        {{-- Panel --}}
+        <div id="github-panel" class="relative z-10 w-full max-w-md bg-white dark:bg-[#111] rounded-2xl shadow-2xl overflow-hidden">
+
+            {{-- Top accent bar --}}
+            <div class="h-1 w-full bg-gradient-to-r from-[#DC2626] to-[#FF9900]"></div>
+
+            <div class="p-7 flex flex-col gap-5">
+
+                {{-- Header --}}
+                <div class="flex items-start justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center shrink-0">
+                            {{-- GitHub icon --}}
+                            <svg class="w-5 h-5 text-[#1b1b18] dark:text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 id="github-notice-title" class="font-bold text-base">github.com/neon2027</h2>
+                            <p class="text-xs text-gray-400">Exequiel Lustan</p>
+                        </div>
+                    </div>
+                    <button onclick="closeGithubNotice()"
+                            class="w-7 h-7 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition shrink-0"
+                            aria-label="Close">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Lock notice --}}
+                <div class="bg-amber-50 dark:bg-amber-400/10 border border-amber-200 dark:border-amber-400/20 rounded-xl p-4 flex gap-3">
+                    <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
+                    </svg>
+                    <div>
+                        <p class="text-sm font-semibold text-amber-700 dark:text-amber-400 mb-1">Repositories are Private</p>
+                        <p class="text-xs text-amber-600 dark:text-amber-300/80 leading-relaxed">
+                            My repositories are kept private to protect client work and proprietary code. They are not publicly viewable on GitHub.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Body --}}
+                <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    I'm happy to walk you through any project, codebase, or implementation in a <strong class="text-[#1b1b18] dark:text-white">one-on-one meeting</strong>. We can do a live code walkthrough, architecture discussion, or Q&A — whatever works best for you.
+                </p>
+
+                {{-- Actions --}}
+                <div class="flex flex-col sm:flex-row gap-3 pt-1">
+                    <a href="#contact"
+                       onclick="closeGithubNotice()"
+                       class="flex-1 inline-flex items-center justify-center gap-2 bg-[#DC2626] text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-[#B91C1C] transition">
+                        {{-- Heroicons: calendar-days --}}
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"/>
+                        </svg>
+                        Schedule a Meeting
+                    </a>
+                    <button onclick="closeGithubNotice()"
+                            class="flex-1 inline-flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-700 text-sm font-semibold px-4 py-2.5 rounded-lg hover:border-[#DC2626] hover:text-[#DC2626] transition">
+                        Maybe Later
+                    </button>
+                </div>
+
+                {{-- Continue to GitHub --}}
+                <a href="https://github.com/neon2027" target="_blank" rel="noopener noreferrer"
+                   onclick="closeGithubNotice()"
+                   class="inline-flex items-center justify-center gap-1.5 text-xs text-gray-400 hover:text-[#DC2626] transition py-1">
+                    {{-- Heroicons: arrow-top-right-on-square --}}
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+                    </svg>
+                    Continue to GitHub anyway
+                </a>
+            </div>
+        </div>
+    </div>
+
     {{-- ── Resume Viewer Modal ─────────────────────────────────────────────── --}}
     <div id="resume-modal"
          class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
@@ -910,6 +1015,44 @@
             resumeError.classList.remove('hidden');
             resumeError.classList.add('flex');
         }
+        // ─────────────────────────────────────────────────────────────────────
+
+        // ── GitHub Notice Modal ───────────────────────────────────────────────
+        const githubModal    = document.getElementById('github-notice-modal');
+        const githubBackdrop = document.getElementById('github-backdrop');
+        const githubPanel    = document.getElementById('github-panel');
+
+        function openGithubNotice() {
+            githubModal.classList.remove('hidden');
+            githubModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+
+            githubBackdrop.classList.remove('modal-backdrop-leave');
+            githubPanel.classList.remove('modal-panel-leave');
+            githubBackdrop.classList.add('modal-backdrop-enter');
+            githubPanel.classList.add('modal-panel-enter');
+        }
+
+        function closeGithubNotice() {
+            githubBackdrop.classList.remove('modal-backdrop-enter');
+            githubPanel.classList.remove('modal-panel-enter');
+            githubBackdrop.classList.add('modal-backdrop-leave');
+            githubPanel.classList.add('modal-panel-leave');
+
+            githubPanel.addEventListener('animationend', () => {
+                githubModal.classList.add('hidden');
+                githubModal.classList.remove('flex');
+                document.body.style.overflow = '';
+                githubBackdrop.classList.remove('modal-backdrop-leave');
+                githubPanel.classList.remove('modal-panel-leave');
+            }, { once: true });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !githubModal.classList.contains('hidden')) {
+                closeGithubNotice();
+            }
+        });
         // ─────────────────────────────────────────────────────────────────────
 
         document.getElementById('menu-toggle')?.addEventListener('click', () => {
