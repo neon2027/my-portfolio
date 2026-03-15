@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- SEO --}}
-    <title>Exequiel Lustan — Full-Stack Developer & AI-Assisted Programmer</title>
-    <meta name="description" content="Exequiel Lustan is a full-stack developer specializing in Laravel, Vue.js, and AI-assisted programming. Available for hire — let's build something great together.">
-    <meta name="keywords" content="full-stack developer, Laravel developer, Vue.js, PHP, AI-assisted programming, portfolio, hire developer, Philippines">
+    <title>Exequiel Lustan — Laravel Developer & AI-Assisted Programmer</title>
+    <meta name="description" content="Exequiel Lustan is a full-stack developer specializing in Laravel, Livewire, Filament, and AI-assisted programming. Available for hire — let's build something great together.">
+    <meta name="keywords" content="full-stack developer, Laravel developer, Livewire, Filament, PHP, TailwindCSS, AlpineJS, AI-assisted programming, portfolio, hire developer, Philippines">
     <meta name="author" content="Exequiel Lustan">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ url('/') }}">
@@ -15,14 +15,14 @@
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/') }}">
-    <meta property="og:title" content="Exequiel Lustan — Full-Stack Developer & AI-Assisted Programmer">
-    <meta property="og:description" content="Full-stack developer specializing in Laravel, Vue.js, and AI-assisted programming. Let's build something great.">
+    <meta property="og:title" content="Exequiel Lustan — Laravel Developer & AI-Assisted Programmer">
+    <meta property="og:description" content="Full-stack developer specializing in Laravel, Livewire, Filament, and AI-assisted programming. Let's build something great.">
     <meta property="og:image" content="{{ asset('assets/illustrations/portfolio.jpg') }}">
 
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Exequiel Lustan — Full-Stack Developer">
-    <meta name="twitter:description" content="Full-stack developer specializing in Laravel, Vue.js, and AI-assisted programming.">
+    <meta name="twitter:title" content="Exequiel Lustan — Laravel Developer">
+    <meta name="twitter:description" content="Full-stack developer specializing in Laravel, Livewire, Filament, and AI-assisted programming.">
     <meta name="twitter:image" content="{{ asset('assets/illustrations/portfolio.jpg') }}">
 
     {{-- Favicons --}}
@@ -61,8 +61,8 @@
 </head>
 
 @php
-    $backendSkills  = ['PHP', 'Laravel', 'Node.js', 'MySQL', 'PostgreSQL', 'Redis', 'REST APIs', 'Authentication', 'Testing (Pest)', 'Git & DevOps'];
-    $frontendSkills = ['HTML5', 'CSS3', 'JavaScript', 'Vue.js', 'React', 'Tailwind CSS', 'Livewire', 'Responsive Design', 'Performance', 'UI/UX Principles'];
+    $backendSkills  = ['PHP', 'Laravel', 'Filament', 'MySQL', 'PostgreSQL', 'Redis', 'REST APIs', 'Authentication', 'Testing (Pest)', 'Git & DevOps'];
+    $frontendSkills = ['HTML5', 'CSS3', 'JavaScript', 'Blade Templates', 'Tailwind CSS', 'Livewire', 'Alpine.js', 'Responsive Design', 'Performance', 'UI/UX Principles'];
 
     $aiSkills = [
         ['title' => 'AI-Assisted Programming',  'desc' => 'Expert use of Claude, ChatGPT, and GitHub Copilot to accelerate development — writing precise, context-rich prompts that yield production-ready code.'],
@@ -87,7 +87,7 @@
         [
             'title'  => 'IBU — Integrated Bicol University Portal',
             'url'    => 'https://ibu.bicol-u.edu.ph',
-            'tags'   => ['Laravel', 'MySQL', 'Vue.js', 'Tailwind CSS'],
+            'tags'   => ['Laravel', 'MySQL', 'Blade', 'Tailwind CSS', 'Livewire', 'AlpineJS','Filament'],
             'desc'   => 'A centralized university portal serving as the digital gateway for Bicol University — consolidating academic resources, announcements, and institutional services into a single unified platform.',
             'year'   => '2025',
             'status' => $checkUrl('https://ibu.bicol-u.edu.ph'),
@@ -95,7 +95,7 @@
         [
             'title'  => 'ICTO — Content Management & Service Request System',
             'url'    => 'https://icto.bicol-u.edu.ph',
-            'tags'   => ['Laravel', 'Livewire', 'MySQL', 'Tailwind CSS'],
+            'tags'   => ['Laravel', 'Livewire', 'MySQL', 'Tailwind CSS','Filament','AlpineJS'],
             'desc'   => 'A dual-purpose platform for the BU ICT Office — featuring a full CMS for managing web content and an integrated service request system that streamlines IT support ticketing and request tracking across offices.',
             'year'   => '2024',
             'status' => $checkUrl('https://icto.bicol-u.edu.ph'),
@@ -103,7 +103,7 @@
         [
             'title'  => 'Survey — Clientele Satisfaction System',
             'url'    => 'https://survey.bicol-u.edu.ph',
-            'tags'   => ['Laravel', 'Vue.js', 'MySQL', 'Chart.js'],
+            'tags'   => ['Laravel', 'Bootstrap 5', 'MySQL', 'Chart.js', 'Livewire','Filament'],
             'desc'   => 'An online survey platform that measures clientele satisfaction across all university offices. Supports configurable questionnaires per office, real-time response analytics, and exportable reports for quality assurance.',
             'year'   => '2023',
             'status' => $checkUrl('https://survey.bicol-u.edu.ph'),
@@ -111,10 +111,40 @@
         [
             'title'  => 'GASS — Financial Monitoring & Claims System',
             'url'    => 'https://gass.bicol-u.edu.ph',
-            'tags'   => ['Laravel', 'MySQL', 'Livewire', 'Alpine.js'],
+            'tags'   => ['Laravel', 'MySQL', 'Livewire', 'Alpine.js','Filament'],
             'desc'   => 'A financial monitoring system for the General Administrative & Support Services office — automating claims processing, budget tracking, expenditure monitoring, and generating financial compliance reports.',
             'year'   => '2022',
             'status' => $checkUrl('https://gass.bicol-u.edu.ph'),
+        ],
+    ];
+
+    $deploymentPlatforms = [
+        [
+            'name'    => 'AWS EC2',
+            'label'   => 'Amazon Web Services',
+            'desc'    => 'Provisioning and managing EC2 instances for production Laravel apps — configuring Nginx, SSL via Certbot, environment setup, and process management with Supervisor for queue workers.',
+            'badges'  => ['EC2', 'Nginx', 'SSL/TLS', 'Ubuntu', 'Supervisor', 'Cron Jobs'],
+            'color'   => 'text-[#FF9900]',
+            'bg'      => 'bg-[#FF9900]/10',
+            'icon'    => '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg>', // Heroicons: cpu-chip
+        ],
+        [
+            'name'    => 'SiteGround',
+            'label'   => 'Managed Cloud Hosting',
+            'desc'    => 'Deploying Laravel applications on SiteGround\'s managed hosting — configuring cPanel, setting up SSH access, managing .env files, running Artisan commands, and configuring cron jobs via cPanel scheduler.',
+            'badges'  => ['cPanel', 'SSH', 'PHP-FPM', 'MySQL', 'Let\'s Encrypt', 'Composer'],
+            'color'   => 'text-[#DC2626]',
+            'bg'      => 'bg-[#DC2626]/10',
+            'icon'    => '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525"/></svg>', // Heroicons: globe-americas
+        ],
+        [
+            'name'    => 'Laravel Cloud',
+            'label'   => 'Laravel Native Platform',
+            'desc'    => 'Deploying and scaling Laravel applications on Laravel Cloud — leveraging zero-downtime deployments, environment management, automatic scaling, and built-in queue/scheduler support for production-grade workloads.',
+            'badges'  => ['Zero-Downtime', 'Auto-Scaling', 'Queues', 'Scheduler', 'Environment Mgmt'],
+            'color'   => 'text-[#FF2D20]',
+            'bg'      => 'bg-[#FF2D20]/10',
+            'icon'    => '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"/></svg>', // Heroicons: cloud-arrow-up
         ],
     ];
 
@@ -133,8 +163,9 @@
                 <li><a href="#about"    class="nav-link hover:text-[#DC2626] transition">About</a></li>
                 <li><a href="#ai"       class="nav-link hover:text-[#DC2626] transition">AI Skills</a></li>
                 <li><a href="#skills"   class="nav-link hover:text-[#DC2626] transition">Skills</a></li>
-                <li><a href="#projects" class="nav-link hover:text-[#DC2626] transition">Projects</a></li>
-                <li><a href="#contact"  class="nav-link hover:text-[#DC2626] transition">Contact</a></li>
+                <li><a href="#deployment" class="nav-link hover:text-[#DC2626] transition">Deployment</a></li>
+                <li><a href="#projects"  class="nav-link hover:text-[#DC2626] transition">Projects</a></li>
+                <li><a href="#contact"   class="nav-link hover:text-[#DC2626] transition">Contact</a></li>
             </ul>
             <a href="#contact"
                class="hidden md:inline-flex items-center gap-2 bg-[#DC2626] text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-[#B91C1C] transition">
@@ -153,8 +184,9 @@
             <a href="#about"    class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
             <a href="#ai"       class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">AI Skills</a>
             <a href="#skills"   class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Skills</a>
-            <a href="#projects" class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Projects</a>
-            <a href="#contact"  class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+            <a href="#deployment" class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Deployment</a>
+            <a href="#projects"   class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Projects</a>
+            <a href="#contact"    class="block hover:text-[#DC2626] transition" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
         </div>
     </header>
 
@@ -274,7 +306,7 @@
                         "I believe great software is the intersection of clean engineering and thoughtful design. I don't just write code — I architect solutions that scale."
                     </blockquote>
                     <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        I'm a passionate full-stack developer based in Legazpi City, Philippines, with a Master's in Information Systems. I specialize in <strong class="text-[#1b1b18] dark:text-white">Laravel & Vue.js</strong> applications and have a growing edge in AI-assisted development workflows.
+                        I'm a passionate full-stack developer based in Legazpi City, Philippines. A graduate of <strong class="text-[#1b1b18] dark:text-white">BS Computer Science</strong> and currently pursuing a <strong class="text-[#1b1b18] dark:text-white">Master in Information System</strong>. I specialize in <strong class="text-[#1b1b18] dark:text-white">Laravel, Filament, Livewire & Blade Templates</strong> applications and have a growing edge in AI-assisted development workflows.
                     </p>
                     <div class="flex flex-wrap gap-2 pt-2">
                         @foreach($tags as $tag)
@@ -409,6 +441,45 @@
                         @endforeach
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ── Cloud & Deployment ───────────────────────────────────────────────── --}}
+    <section id="deployment" class="py-24 bg-[#FAFAFA] dark:bg-[#0a0a0a]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 section-fade">
+                <p class="text-sm font-semibold text-[#DC2626] uppercase tracking-widest mb-2">Infrastructure</p>
+                <h2 class="text-4xl font-bold">Cloud & <span class="gradient-text">Deployment</span></h2>
+                <p class="text-gray-600 dark:text-gray-400 mt-4">
+                    From server provisioning to managed platforms — I deploy Laravel applications to production with confidence across multiple cloud environments.
+                </p>
+            </div>
+
+            <div class="section-fade grid md:grid-cols-3 gap-6">
+                @foreach($deploymentPlatforms as $platform)
+                    <div class="card-hover bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-2xl p-7 flex flex-col gap-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 {{ $platform['bg'] }} {{ $platform['color'] }} rounded-xl flex items-center justify-center shrink-0">
+                                {!! $platform['icon'] !!}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg leading-tight">{{ $platform['name'] }}</h3>
+                                <p class="text-xs text-gray-400">{{ $platform['label'] }}</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed flex-1">
+                            {{ $platform['desc'] }}
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-3 border-t border-gray-100 dark:border-gray-800">
+                            @foreach($platform['badges'] as $badge)
+                                <span class="text-xs font-medium border border-dashed border-[#DC2626]/40 text-[#DC2626] px-2.5 py-1 rounded-md">
+                                    {{ $badge }}
+                                </span>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
