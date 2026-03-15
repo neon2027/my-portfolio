@@ -96,15 +96,18 @@
         ['title' => 'LLM API Usage', 'desc' => 'Building features powered by LLM APIs (OpenAI, Anthropic) — including context management, function calling, and response streaming.'],
     ];
 
-    $checkUrl = function (string $url): bool {
-        try {
-            $response = \Illuminate\Support\Facades\Http::timeout(5)
-                ->withoutVerifying()
-                ->head($url);
-            return $response->successful() || $response->redirect();
-        } catch (\Throwable) {
-            return false;
-        }
+    $checkUrl = function (string $url): string {
+        $key = 'project_status_' . md5($url);
+        return \Illuminate\Support\Facades\Cache::remember($key, now()->addMinutes(5), function () use ($url): string {
+            try {
+                $response = \Illuminate\Support\Facades\Http::timeout(5)
+                    ->withoutVerifying()
+                    ->head($url);
+                return $response->successful() || $response->redirect() ? 'Live' : 'Down';
+            } catch (\Throwable) {
+                return 'Down';
+            }
+        });
     };
 
     $projects = [
@@ -114,7 +117,7 @@
             'tags'   => ['Laravel', 'MySQL', 'Vue.js', 'Tailwind CSS'],
             'desc'   => 'A centralized university portal serving as the digital gateway for Bicol University — consolidating academic resources, announcements, and institutional services into a single unified platform.',
             'year'   => '2025',
-            'status' => $checkUrl('https://ibu.bicol-u.edu.ph') ? 'Live' : 'Down',
+            'status' => $checkUrl('https://ibu.bicol-u.edu.ph'),
         ],
         [
             'title'  => 'ICTO — Content Management & Service Request System',
@@ -122,7 +125,7 @@
             'tags'   => ['Laravel', 'Livewire', 'MySQL', 'Tailwind CSS'],
             'desc'   => 'A dual-purpose platform for the BU ICT Office — featuring a full CMS for managing web content and an integrated service request system that streamlines IT support ticketing and request tracking across offices.',
             'year'   => '2024',
-            'status' => $checkUrl('https://icto.bicol-u.edu.ph') ? 'Live' : 'Down',
+            'status' => $checkUrl('https://icto.bicol-u.edu.ph'),
         ],
         [
             'title'  => 'Survey — Clientele Satisfaction System',
@@ -130,7 +133,7 @@
             'tags'   => ['Laravel', 'Vue.js', 'MySQL', 'Chart.js'],
             'desc'   => 'An online survey platform that measures clientele satisfaction across all university offices. Supports configurable questionnaires per office, real-time response analytics, and exportable reports for quality assurance.',
             'year'   => '2023',
-            'status' => $checkUrl('https://survey.bicol-u.edu.ph') ? 'Live' : 'Down',
+            'status' => $checkUrl('https://survey.bicol-u.edu.ph'),
         ],
         [
             'title'  => 'GASS — Financial Monitoring & Claims System',
@@ -138,7 +141,7 @@
             'tags'   => ['Laravel', 'MySQL', 'Livewire', 'Alpine.js'],
             'desc'   => 'A financial monitoring system for the General Administrative & Support Services office — automating claims processing, budget tracking, expenditure monitoring, and generating financial compliance reports.',
             'year'   => '2022',
-            'status' => $checkUrl('https://gass.bicol-u.edu.ph') ? 'Live' : 'Down',
+            'status' => $checkUrl('https://gass.bicol-u.edu.ph'),
         ],
     ];
 
