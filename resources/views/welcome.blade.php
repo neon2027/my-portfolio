@@ -169,8 +169,8 @@
     {{-- ── Navigation ──────────────────────────────────────────────────────── --}}
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#FAFAFA]/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
         <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#hero" class="text-lg font-bold tracking-tight">
-                <span class="text-[#DC2626]">EL</span><span class="text-[#1b1b18] dark:text-white">.</span>
+            <a href="#hero" class="flex items-center">
+                <img src="{{ asset('logo.svg') }}" alt="EL." class="h-8 w-auto" width="96" height="40">
             </a>
             <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600 dark:text-gray-400">
                 <li><a href="#about"    class="nav-link hover:text-[#DC2626] transition">About</a></li>
@@ -237,6 +237,14 @@
                            class="inline-flex items-center gap-2 border border-gray-200 dark:border-gray-700 text-[#1b1b18] dark:text-white font-semibold px-6 py-3 rounded-lg hover:border-[#DC2626] hover:text-[#DC2626] transition-all duration-200">
                             Let's Talk
                         </a>
+                        <button onclick="openResume()"
+                                class="inline-flex items-center gap-2 border border-gray-200 dark:border-gray-700 text-[#1b1b18] dark:text-white font-semibold px-6 py-3 rounded-lg hover:border-[#DC2626] hover:text-[#DC2626] transition-all duration-200">
+                            {{-- Heroicons: document-text --}}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+                            </svg>
+                            View Resume
+                        </button>
                     </div>
                     {{-- Social links --}}
                     <div class="flex items-center gap-4 pt-2">
@@ -684,9 +692,226 @@
         </div>
     </footer>
 
+    {{-- ── Resume Viewer Modal ─────────────────────────────────────────────── --}}
+    <div id="resume-modal"
+         class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+         aria-modal="true" role="dialog" aria-labelledby="resume-modal-title">
+
+        {{-- Backdrop --}}
+        <div id="resume-backdrop"
+             class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+             onclick="closeResume()"></div>
+
+        {{-- Panel --}}
+        <div class="relative z-10 w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#111] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+
+            {{-- Header --}}
+            <div class="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 dark:border-gray-800 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 bg-[#DC2626]/10 rounded-lg flex items-center justify-center">
+                        <svg class="w-3.5 h-3.5 text-[#DC2626]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+                        </svg>
+                    </div>
+                    <span id="resume-modal-title" class="text-sm font-semibold text-[#1b1b18] dark:text-white">Exequiel Lustan — Resume</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="hidden sm:inline-flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-400/10 border border-amber-200 dark:border-amber-400/20 px-2.5 py-1 rounded-full font-medium">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
+                        </svg>
+                        View only
+                    </span>
+                    {{-- Zoom controls --}}
+                    <div class="flex items-center gap-1 border border-gray-200 dark:border-gray-700 rounded-lg px-1 py-0.5">
+                        <button onclick="zoomResume(-1)" aria-label="Zoom out"
+                                class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#DC2626] transition rounded">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"/>
+                            </svg>
+                        </button>
+                        <span id="resume-zoom-label" class="text-xs font-medium text-gray-500 dark:text-gray-400 w-10 text-center">100%</span>
+                        <button onclick="zoomResume(1)" aria-label="Zoom in"
+                                class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-[#DC2626] transition rounded">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button onclick="closeResume()"
+                            class="w-7 h-7 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+                            aria-label="Close">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            {{-- PDF canvas area --}}
+            <div id="resume-container"
+                 class="flex-1 overflow-y-auto bg-gray-100 dark:bg-[#0a0a0a] p-4 select-none"
+                 oncontextmenu="return false">
+
+                {{-- Loading state --}}
+                <div id="resume-loading" class="flex flex-col items-center justify-center py-20 gap-3">
+                    <div class="w-8 h-8 border-2 border-[#DC2626] border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Loading resume…</p>
+                </div>
+
+                {{-- Error state --}}
+                <div id="resume-error" class="hidden flex-col items-center justify-center py-20 gap-3 text-center">
+                    <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/>
+                    </svg>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Resume not available at the moment.</p>
+                </div>
+
+                {{-- Pages will be appended here as <canvas> --}}
+                <div id="resume-pages" class="hidden flex flex-col items-center gap-4"></div>
+            </div>
+
+            {{-- Footer --}}
+            <div class="shrink-0 px-5 py-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-400">
+                <span id="resume-page-info"></span>
+                <span>Contact me to request a copy</span>
+            </div>
+        </div>
+    </div>
+
+    {{-- PDF.js (Mozilla) --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
     @livewireScripts
 
     <script>
+        // ── Resume viewer ─────────────────────────────────────────────────────
+        const resumeModal     = document.getElementById('resume-modal');
+        const resumePages     = document.getElementById('resume-pages');
+        const resumeLoading   = document.getElementById('resume-loading');
+        const resumeError     = document.getElementById('resume-error');
+        const resumePageInfo  = document.getElementById('resume-page-info');
+        const resumeZoomLabel = document.getElementById('resume-zoom-label');
+
+        let resumePdf        = null;
+        let resumeBaseScale  = 1.5;   // initial fit scale (set after first load)
+        let resumeZoomStep   = 0;     // steps from base: -3 … +5
+        const ZOOM_STEPS     = [0.5, 0.67, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
+        let resumeZoomIndex  = 5;     // default index → 1.5×
+
+        function currentScale() { return ZOOM_STEPS[resumeZoomIndex]; }
+
+        function openResume() {
+            resumeModal.classList.remove('hidden');
+            resumeModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            if (!resumePdf) loadResumePdf();
+        }
+
+        function closeResume() {
+            resumeModal.classList.add('hidden');
+            resumeModal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        async function zoomResume(dir) {
+            const next = resumeZoomIndex + dir;
+            if (next < 0 || next >= ZOOM_STEPS.length) return;
+            resumeZoomIndex = next;
+            resumeZoomLabel.textContent = Math.round(ZOOM_STEPS[resumeZoomIndex] * 100) + '%';
+            if (resumePdf) await drawPages();
+        }
+
+        // Close on Escape; block save/print shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { closeResume(); return; }
+            if (!resumeModal.classList.contains('hidden')) {
+                if ((e.ctrlKey || e.metaKey) && ['s','p','S','P'].includes(e.key)) {
+                    e.preventDefault(); e.stopPropagation();
+                }
+                // Ctrl +/- zoom
+                if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '=')) {
+                    e.preventDefault(); zoomResume(1);
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key === '-') {
+                    e.preventDefault(); zoomResume(-1);
+                }
+            }
+        });
+
+        // Mouse-wheel zoom (Ctrl + scroll)
+        document.getElementById('resume-container').addEventListener('wheel', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                zoomResume(e.deltaY < 0 ? 1 : -1);
+            }
+        }, { passive: false });
+
+        window.addEventListener('beforeprint', (e) => {
+            if (!resumeModal.classList.contains('hidden')) e.preventDefault();
+        });
+
+        async function loadResumePdf() {
+            if (typeof pdfjsLib === 'undefined') { showResumeError(); return; }
+
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+            try {
+                resumePdf = await pdfjsLib.getDocument({
+                    url: '{{ route("resume.view") }}',
+                    withCredentials: false,
+                }).promise;
+
+                resumePageInfo.textContent =
+                    `${resumePdf.numPages} page${resumePdf.numPages > 1 ? 's' : ''}`;
+
+                // Pick a fit-to-width base scale from the first page
+                const firstPage     = await resumePdf.getPage(1);
+                const naturalWidth  = firstPage.getViewport({ scale: 1 }).width;
+                const containerW    = resumePages.clientWidth - 32;
+                const fitScale      = Math.min(1.5, containerW / naturalWidth);
+                // Find the closest zoom step to fitScale
+                resumeZoomIndex = ZOOM_STEPS.reduce((best, s, i) =>
+                    Math.abs(s - fitScale) < Math.abs(ZOOM_STEPS[best] - fitScale) ? i : best, resumeZoomIndex);
+                resumeZoomLabel.textContent = Math.round(ZOOM_STEPS[resumeZoomIndex] * 100) + '%';
+
+                await drawPages();
+
+                resumeLoading.classList.add('hidden');
+                resumePages.classList.remove('hidden');
+                resumePages.classList.add('flex');
+            } catch {
+                showResumeError();
+            }
+        }
+
+        async function drawPages() {
+            resumePages.innerHTML = '';
+            const scale = currentScale();
+
+            for (let i = 1; i <= resumePdf.numPages; i++) {
+                const page     = await resumePdf.getPage(i);
+                const viewport = page.getViewport({ scale });
+
+                const canvas         = document.createElement('canvas');
+                canvas.width         = viewport.width;
+                canvas.height        = viewport.height;
+                canvas.className     = 'rounded-lg shadow-md';
+                canvas.style.cssText = 'user-select:none;-webkit-user-select:none;pointer-events:none;max-width:100%;';
+
+                await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+                resumePages.appendChild(canvas);
+            }
+        }
+
+        function showResumeError() {
+            resumeLoading.classList.add('hidden');
+            resumeError.classList.remove('hidden');
+            resumeError.classList.add('flex');
+        }
+        // ─────────────────────────────────────────────────────────────────────
+
         document.getElementById('menu-toggle')?.addEventListener('click', () => {
             document.getElementById('mobile-menu')?.classList.toggle('hidden');
         });

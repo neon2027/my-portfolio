@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 40" fill="none">
+  <!-- Badge background -->
+  <rect width="96" height="40" rx="9" fill="#DC2626"/>
+
+  <!-- Subtle inner highlight -->
+  <rect x="1" y="1" width="94" height="20" rx="8" fill="white" opacity="0.06"/>
+
+  <!-- E letterform -->
+  <rect x="16" y="11" width="14" height="3" rx="1.5" fill="white"/>
+  <rect x="16" y="18.5" width="11" height="3" rx="1.5" fill="white"/>
+  <rect x="16" y="26" width="14" height="3" rx="1.5" fill="white"/>
+  <rect x="16" y="11" width="3" height="18" rx="1.5" fill="white"/>
+
+  <!-- L letterform -->
+  <rect x="36" y="11" width="3" height="18" rx="1.5" fill="white"/>
+  <rect x="36" y="26" width="12" height="3" rx="1.5" fill="white"/>
+
+  <!-- Period dot -->
+  <circle cx="57" cy="28" r="2.2" fill="white" opacity="0.90"/>
+</svg>

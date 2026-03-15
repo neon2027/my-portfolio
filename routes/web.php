@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 
 Route::view('/', 'welcome')->name('home');
+Route::get('/resume', [\App\Http\Controllers\ResumeController::class, 'view'])->name('resume.view');
 
 Route::middleware([
     'auth',
